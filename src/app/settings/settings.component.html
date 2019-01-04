@@ -1,14 +1,26 @@
-<div class="row">
-  <div class="col-2">
-    <ul class="list-group">
-      <button type="button" class="list-group-item list-group-item-action" [class.active]="setting == 'rooms'" (click)="setSetting('rooms')">Rooms</button>
-      <button type="button" class="list-group-item list-group-item-action" [class.active]="setting == 'roomTypes'" (click)="setSetting('roomTypes')">Room Types</button>
-    </ul>
-  </div>
-  <div class="col-10">
-    <div [ngSwitch]="setting">
-      <settings-rooms *ngSwitchCase="'rooms'">Rooms</settings-rooms>
-      <span *ngSwitchCase="'roomTypes'">Room types</span>
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item" (click)="setSetting('rooms')">
+            <a class="nav-link" [class.active]="setting == 'rooms'">
+              Rooms
+            </a>
+          </li>
+          <li class="nav-item" (click)="setSetting('roomTypes')">
+            <a class="nav-link" [class.active]="setting == 'roomTypes'">
+              Room Types
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="col-10">
+      <div [ngSwitch]="setting">
+        <settings-rooms *ngSwitchCase="'rooms'">Rooms</settings-rooms>
+        <settings-room-types *ngSwitchCase="'roomTypes'">Room types</settings-room-types>
+      </div>
     </div>
   </div>
 </div>
