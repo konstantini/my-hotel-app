@@ -1,13 +1,13 @@
-  
+
   .sidebar-sticky {
     position: -webkit-sticky;
     position: sticky;
-    height: calc(100vh - 48px);
+    height: calc(100vh);
     padding-top: .5rem;
     overflow-x: hidden;
-    overflow-y: auto; 
+    overflow-y: auto;
   }
-  
+
 
   .sidebar .nav-link {
     font-weight: 500;
@@ -15,7 +15,7 @@
     cursor: pointer;
     margin-right: 4px;
   }
-    
+
   .sidebar .nav-link.active {
     color: #007bff;
   }

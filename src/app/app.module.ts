@@ -10,6 +10,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RoomsComponent } from './settings/rooms/rooms.component';
 import { RoomTypesComponent } from './settings/room-types/room-types.component';
+import { DataTableComponent } from './common/data-table/data-table.component';
+import { PageableDataTableComponent } from './common/pageable-data-table/pageable-data-table.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { RoomTypesComponent } from './settings/room-types/room-types.component';
     SettingsComponent,
     UserProfileComponent,
     RoomsComponent,
-    RoomTypesComponent
+    RoomTypesComponent,
+    DataTableComponent,
+    PageableDataTableComponent
   ],
   imports: [
     BrowserModule,

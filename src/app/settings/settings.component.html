@@ -18,8 +18,8 @@
     </nav>
     <div class="col-10">
       <div [ngSwitch]="setting">
-        <settings-rooms *ngSwitchCase="'rooms'">Rooms</settings-rooms>
-        <settings-room-types *ngSwitchCase="'roomTypes'">Room types</settings-room-types>
+        <app-settings-rooms *ngSwitchCase="'rooms'">Rooms</app-settings-rooms>
+        <app-settings-room-types *ngSwitchCase="'roomTypes'">Room types</app-settings-room-types>
       </div>
     </div>
   </div>

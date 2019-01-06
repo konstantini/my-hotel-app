@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ROOM_TYPES } from './room-types/room-types-mock';
+import { RoomType } from './room-types/room-type';
 
 @Component({
   selector: 'app-settings',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  public setting = "rooms";
+  public setting = 'rooms';
+
+  roomTypes: RoomType[] = ROOM_TYPES;
 
   constructor() { }
 
