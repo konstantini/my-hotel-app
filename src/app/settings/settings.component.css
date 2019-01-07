@@ -1,21 +1,21 @@
 
-  .sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    height: calc(100vh);
-    padding-top: .5rem;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
+.sidebar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  height: calc(100vh);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
 
-  .sidebar .nav-link {
-    font-weight: 500;
-    color: #333;
-    cursor: pointer;
-    margin-right: 4px;
-  }
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  margin-right: 4px;
+}
 
-  .sidebar .nav-link.active {
-    color: #007bff;
-  }
+.sidebar .nav-link.active {
+  color: #007bff;
+}

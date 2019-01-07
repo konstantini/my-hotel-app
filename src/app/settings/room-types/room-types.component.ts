@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+
 import { RoomType } from './room-type';
 import { ROOM_TYPES } from './room-types-mock';
 
@@ -9,10 +11,23 @@ import { ROOM_TYPES } from './room-types-mock';
 })
 export class RoomTypesComponent implements OnInit {
 
-  roomTypes: RoomType[] = ROOM_TYPES;
+  displayedColumns: string[] = ['type', 'capacity', 'description'];
+  // roomTypes: RoomType[] = ROOM_TYPES;
+
+  dataSource = new MatTableDataSource<RoomType>(ROOM_TYPES);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
 }
