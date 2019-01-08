@@ -12,9 +12,29 @@
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-item nav-link" routerLink="/settings" routerLinkActive="active">
-          <i class="fa fa-cog"></i>
-        </a>
+        <div class="btn-group" dropdown>
+          <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-basic">
+            <i class="fa fa-cog"></i> <span class="caret"></span>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+              role="menu" aria-labelledby="button-basic">
+            <li role="menuitem">
+              <a class="nav-item nav-link" routerLink="/settings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                Settings
+              </a>
+            </li>  
+            <li role="menuitem">
+              <a class="nav-item nav-link" routerLink="/settings/rooms" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                Rooms
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="nav-item nav-link" routerLink="/settings/room-types" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                Room Types
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-item nav-link" routerLink="/profile" routerLinkActive="active">

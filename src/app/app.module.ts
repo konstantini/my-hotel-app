@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material-module.module';
 
-import { MatButtonModule, MatCheckboxModule, MatTableModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -16,6 +15,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RoomsComponent } from './settings/rooms/rooms.component';
 import { RoomTypesComponent } from './settings/room-types/room-types.component';
+
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RoomTypesComponent } from './settings/room-types/room-types.component';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    BsDropdownModule.forRoot(),
     FlexLayoutModule,
     BrowserAnimationsModule,
   ],

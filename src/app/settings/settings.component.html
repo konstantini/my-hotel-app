@@ -1,26 +1,3 @@
-<div class="container-fluid" style="height: 100%;">
-  <div class="row">
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item" (click)="setSetting('rooms')">
-            <a class="nav-link" [class.active]="setting == 'rooms'">
-              Rooms
-            </a>
-          </li>
-          <li class="nav-item" (click)="setSetting('roomTypes')">
-            <a class="nav-link" [class.active]="setting == 'roomTypes'">
-              Room Types
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <div class="col-10">
-      <div [ngSwitch]="setting">
-        <app-settings-rooms *ngSwitchCase="'rooms'">Rooms</app-settings-rooms>
-        <app-settings-room-types *ngSwitchCase="'roomTypes'">Room types</app-settings-room-types>
-      </div>
-    </div>
-  </div>
+<div>
+  settings
 </div>

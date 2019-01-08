@@ -11,10 +11,9 @@ import { ROOM_TYPES } from './room-types-mock';
 })
 export class RoomTypesComponent implements OnInit {
 
-  displayedColumns: string[] = ['type', 'capacity', 'description'];
-  // roomTypes: RoomType[] = ROOM_TYPES;
+  displayedColumns: string[] = ['type', 'capacity', 'description', 'operations'];
 
-  dataSource = new MatTableDataSource<RoomType>(ROOM_TYPES);
+  dataSource: MatTableDataSource<RoomType>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -22,12 +21,24 @@ export class RoomTypesComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    this.dataSource = new MatTableDataSource<RoomType>(ROOM_TYPES);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
+  ngOnDestroy() {
+    ROOM_TYPES.forEach(element => element.isForEdit = false);
+  }
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  edit(row: RoomType) {
+    if(row.isForEdit) {
+      // send update
+    }
+    row.isForEdit = !row.isForEdit;
   }
 
 }
