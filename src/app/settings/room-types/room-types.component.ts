@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 
 import { RoomType } from './room-type';
-import { ROOM_TYPES } from './room-types-mock';
+import { RoomTypeService } from './room-type.service';
 
 @Component({
   selector: 'app-settings-room-types',
@@ -18,16 +18,19 @@ export class RoomTypesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {}
+  roomTypes: RoomType[];
+
+  constructor(private roomTypeService: RoomTypeService) {}
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource<RoomType>(ROOM_TYPES);
+    this.getRoomTypes();
+    this.dataSource = new MatTableDataSource<RoomType>(this.roomTypes);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  ngOnDestroy() {
-    ROOM_TYPES.forEach(element => element.isForEdit = false);
+  getRoomTypes(): void {
+    this.roomTypeService.getRoomTypes().subscribe(roomTypes => this.roomTypes = roomTypes);
   }
 
   applyFilter(filterValue: string) {
@@ -35,7 +38,7 @@ export class RoomTypesComponent implements OnInit {
   }
 
   edit(row: RoomType) {
-    if(row.isForEdit) {
+    if (row.isForEdit) {
       // send update
     }
     row.isForEdit = !row.isForEdit;
