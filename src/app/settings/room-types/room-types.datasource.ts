@@ -57,15 +57,15 @@ export class RoomTypesDataSource implements DataSource<RoomType> {
     }
 
     update(roomType: RoomType) {
-        this.roomTypeService.updateRoomType(roomType).subscribe(updated => console.log(updated));
+        this.roomTypeService.updateRoomType(roomType).subscribe(item => {
+            const data = this.data.getValue();
+            const index = data.indexOf(i => i.id === item.id);
+            if (index > -1) {
+              data[index] = item;
+            }
+            this.data.next(data);
+        });
         this.updateChangeSubscription();
-    }
-
-    replaceItemValue(oldItem: RoomType, newItem: RoomType) {
-        const allItemsIdx = this.data.getValue().indexOf(oldItem, 0);
-        if (allItemsIdx > -1) {
-          this.data[allItemsIdx] = newItem;
-        }
     }
 
     connect(): Observable<RoomType[]> {
