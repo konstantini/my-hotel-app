@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material';
 
 import { RoomType } from './room-type';
 import { RoomTypeService } from './room-type.service';
-import { RoomTypesDataSource } from './room-types.dataSource';
+import { RoomTypesDataSource } from './room-types.datasource';
 
 @Component({
   selector: 'app-settings-room-types',
