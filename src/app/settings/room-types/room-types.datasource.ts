@@ -59,7 +59,7 @@ export class RoomTypesDataSource implements DataSource<RoomType> {
     update(roomType: RoomType) {
         this.roomTypeService.updateRoomType(roomType).subscribe(item => {
             const data = this.data.getValue();
-            const index = data.indexOf(i => i.id === item.id);
+            const index = data.findIndex(i => i.id === item.id);
             if (index > -1) {
               data[index] = item;
             }

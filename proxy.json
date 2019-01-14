@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "http://localhost:8081",
-      "secure": false
+      "target": "https://cryptic-bayou-86593.herokuapp.com",
+      "secure": true
     }
   }

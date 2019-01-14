@@ -16,7 +16,7 @@ const httpOptions = {
 })
 export class RoomTypeService {
 
-  private roomTypesUrl = 'api/room-types';
+  private roomTypesUrl = 'https://cryptic-bayou-86593.herokuapp.com/api/room-types';
 
   constructor(private http: HttpClient) { }
 

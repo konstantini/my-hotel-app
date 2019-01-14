@@ -23,7 +23,8 @@ export class RoomTypesComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.dataSource = new RoomTypesDataSource(this.roomTypeService, this.sort);
-    this.dataSource.load();
+    console.log(this.dataSource);
+    // this.dataSource.load();
   }
 
   ngAfterViewInit(): void {
