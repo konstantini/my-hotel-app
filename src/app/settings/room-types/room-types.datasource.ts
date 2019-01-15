@@ -13,6 +13,14 @@ export class RoomTypesDataSource implements DataSource<RoomType> {
 
     private data: BehaviorSubject<RoomType[]>;
 
+    private readonly _filter = new BehaviorSubject<string>('');
+
+    get filter(): string { return this._filter.value; }
+    set filter(filter: string) { this._filter.next(filter); }
+
+
+    filteredData: RoomType[];
+
     renderChangesSubscription = Subscription.EMPTY;
 
     private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -32,15 +40,24 @@ export class RoomTypesDataSource implements DataSource<RoomType> {
 
         const dataStream = this.data;
 
-        const orderedData = combineLatest(dataStream, sortChange)
+
+        const filteredData = combineLatest(dataStream, this._filter)
+            .pipe(map(([data]) => this.filterData(data)));
+
+        const orderedData = combineLatest(filteredData, sortChange)
             .pipe(map(([data]) => this.orderData(data)));
 
         this.renderChangesSubscription.unsubscribe();
         this.renderChangesSubscription = orderedData.subscribe(data => this.renderData.next(data));
     }
 
+    filterData(data: RoomType[]): RoomType[] {
+        this.filteredData = !this.filter ? data : data.filter(obj => this.filterPredicate(obj, this.filter));
+
+        return this.filteredData;
+    }
+
     orderData(data: RoomType[]): RoomType[] {
-        // If there is no active sort or direction, return the data without trying to sort.
         if (!this.sort) { return data; }
 
         return this.sortData(data.slice(), this.sort);
@@ -90,6 +107,24 @@ export class RoomTypesDataSource implements DataSource<RoomType> {
         this.loadingSubject.complete();
     }
 
+    filterPredicate: ((data: RoomType, filter: string) => boolean) = (data: RoomType, filter: string): boolean => {
+        // Transform the data into a lowercase string of all property values.
+        const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
+          // Use an obscure Unicode character to delimit the words in the concatenated string.
+          // This avoids matches where the values of two columns combined will match the user's query
+          // (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
+          // that has a very low chance of being typed in by somebody in a text field. This one in
+          // particular is "White up-pointing triangle with dot" from
+          // https://en.wikipedia.org/wiki/List_of_Unicode_characters
+          return currentTerm + (data as {[key: string]: any})[key] + '◬';
+        }, '').toLowerCase();
+
+        // Transform the filter by converting it to lowercase and removing whitespace.
+        const transformedFilter = filter.trim().toLowerCase();
+
+        return dataStr.indexOf(transformedFilter) !== -1;
+    }
+
     sortData(data: RoomType[], sort: MatSort): RoomType[] {
         if (!sort.active || sort.direction === '') { return data; }
 
@@ -104,7 +139,7 @@ export class RoomTypesDataSource implements DataSource<RoomType> {
             default: return 0;
           }
         });
-      }
+    }
 
 }
 

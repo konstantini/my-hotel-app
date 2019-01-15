@@ -31,6 +31,10 @@ export class RoomTypesComponent implements OnInit, AfterViewInit {
     this.sort.sortChange.subscribe();
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   edit(row: RoomType) {
     if (row.isForEdit) {
       row.isForEdit = !row.isForEdit;
