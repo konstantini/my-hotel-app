@@ -32,6 +32,13 @@ export class RoomTypeService {
       );
   }
 
+  deleteRoomType(roomType: RoomType): Observable<any> {
+    return this.http.delete(this.roomTypesUrl + '/' + roomType.id, httpOptions)
+      .pipe(
+        catchError(this.handleError('deleteRoomType'))
+      );
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(operation, error);

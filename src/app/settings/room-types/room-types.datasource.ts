@@ -5,7 +5,7 @@ import { RoomTypeService } from './room-type.service';
 import { BehaviorSubject, Observable, Subscription, combineLatest, merge, of } from 'rxjs';
 
 import { RoomType } from './room-type';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, finalize } from 'rxjs/operators';
 
 export class RoomTypesDataSource implements DataSource<RoomType> {
 
@@ -47,13 +47,14 @@ export class RoomTypesDataSource implements DataSource<RoomType> {
     }
 
     load() {
-        // this.loadingSubject.next(true);
+        this.loadingSubject.next(true);
         this.roomTypeService.getRoomTypes()
             .pipe(
                 catchError(() => of([])),
-                // finalize(() => {this.loadingSubject.next(false); })
-            )
-            .subscribe(roomTypes => this.data.next(roomTypes));
+                finalize(() => {
+                    this.loadingSubject.next(false);
+                })
+            ).subscribe(roomTypes => this.data.next(roomTypes));
     }
 
     update(roomType: RoomType) {
@@ -62,6 +63,18 @@ export class RoomTypesDataSource implements DataSource<RoomType> {
             const index = data.findIndex(i => i.id === item.id);
             if (index > -1) {
               data[index] = item;
+            }
+            this.data.next(data);
+        });
+        this.updateChangeSubscription();
+    }
+
+    delete(roomType: RoomType) {
+        this.roomTypeService.deleteRoomType(roomType).subscribe(() => {
+            const data = this.data.getValue();
+            const index = data.findIndex(i => i.id === roomType.id);
+            if (index > -1) {
+                data.splice(index, 1);
             }
             this.data.next(data);
         });

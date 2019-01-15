@@ -16,15 +16,15 @@ export class RoomTypesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  @ViewChild('description') input: ElementRef;
+  @ViewChild('type') typeInput: ElementRef;
+  @ViewChild('capacity') capacityInput: ElementRef;
+  @ViewChild('description') descriptionInput: ElementRef;
   dataSource: RoomTypesDataSource;
 
   constructor(private roomTypeService: RoomTypeService) {}
 
   ngOnInit() {
     this.dataSource = new RoomTypesDataSource(this.roomTypeService, this.sort);
-    console.log(this.dataSource);
-    // this.dataSource.load();
   }
 
   ngAfterViewInit(): void {
@@ -34,11 +34,17 @@ export class RoomTypesComponent implements OnInit, AfterViewInit {
   edit(row: RoomType) {
     if (row.isForEdit) {
       row.isForEdit = !row.isForEdit;
-      row.description = this.input.nativeElement.value;
+      row.type = this.typeInput.nativeElement.value;
+      row.capacity = this.capacityInput.nativeElement.value;
+      row.description = this.descriptionInput.nativeElement.value;
       this.dataSource.update(row);
     } else {
       row.isForEdit = !row.isForEdit;
     }
+  }
+
+  delete(row: RoomType) {
+    this.dataSource.delete(row);
   }
 
 }
