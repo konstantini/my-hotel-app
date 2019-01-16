@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Room</h1>
+<div mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Room number" formControlName="number">
+  </mat-form-field>
+  <mat-form-field>
+      <mat-select placeholder="Select room type"
+          formControlName="type" [compareWith]="compare">
+          <mat-option *ngFor="let rt of roomTypes" [value]="rt">
+            {{rt.type}}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+  <button mat-button (click)="save()">Save</button>
+</div>

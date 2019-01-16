@@ -17,6 +17,7 @@ import { RoomsComponent } from './settings/rooms/rooms.component';
 import { RoomTypesComponent } from './settings/room-types/room-types.component';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { RoomDialogComponent } from './settings/rooms/room-dialog/room-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     UserProfileComponent,
     RoomsComponent,
     RoomTypesComponent,
+    RoomDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +41,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     BrowserAnimationsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [RoomDialogComponent]
 })
 export class AppModule { }
