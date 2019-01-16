@@ -22,7 +22,7 @@ export class RoomDialogComponent {
     public dialogRef: MatDialogRef<RoomDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Room) {
 
-      this.roomTypeService.getRoomTypes().subscribe(rts => this.roomTypes = rts);
+      this.roomTypeService.get().subscribe(rts => this.roomTypes = rts);
 
       this.form = this.fb.group({
         number: [data.number, Validators.required],

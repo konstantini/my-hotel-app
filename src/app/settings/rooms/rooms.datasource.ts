@@ -1,4 +1,4 @@
-import { MyDataSource } from './datasource';
+import { MyDataSource } from '../../datasource/datasource';
 import { Room } from './room';
 import { MatSort } from '@angular/material';
 import { RoomsService } from './rooms.service';

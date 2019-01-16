@@ -36,15 +36,15 @@ export class RoomTypesComponent implements OnInit, AfterViewInit {
   }
 
   edit(row: RoomType) {
-    if (row.isForEdit) {
-      row.isForEdit = !row.isForEdit;
-      row.type = this.typeInput.nativeElement.value;
-      row.capacity = this.capacityInput.nativeElement.value;
-      row.description = this.descriptionInput.nativeElement.value;
-      this.dataSource.update(row);
-    } else {
-      row.isForEdit = !row.isForEdit;
-    }
+    // if (row.isForEdit) {
+    //   row.isForEdit = !row.isForEdit;
+    //   row.type = this.typeInput.nativeElement.value;
+    //   row.capacity = this.capacityInput.nativeElement.value;
+    //   row.description = this.descriptionInput.nativeElement.value;
+    //   this.dataSource.update(row);
+    // } else {
+    //   row.isForEdit = !row.isForEdit;
+    // }
   }
 
   delete(row: RoomType) {

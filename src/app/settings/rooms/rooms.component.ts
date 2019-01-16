@@ -25,16 +25,18 @@ export class RoomsComponent implements OnInit, AfterViewInit {
 
   roomTypes: RoomType[];
 
-  constructor(private roomsService: RoomsService, private rts: RoomTypeService,
-    public dialog: MatDialog) { }
+  constructor(private roomsService: RoomsService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.dataSource = new RoomsDataSource(this.roomsService, this.sort);
-    this.rts.getRoomTypes().subscribe(rt => this.roomTypes = rt);
   }
 
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe();
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   edit(row: Room) {
@@ -50,7 +52,6 @@ export class RoomsComponent implements OnInit, AfterViewInit {
         this.dataSource.update(result);
       }
     });
-
   }
 
   delete(row: Room) {

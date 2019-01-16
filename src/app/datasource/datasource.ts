@@ -5,11 +5,12 @@ import { MatSort, Sort } from '@angular/material';
 import { BehaviorSubject, Observable, Subscription, combineLatest, merge, of } from 'rxjs';
 
 import { map, catchError, finalize } from 'rxjs/operators';
-import { Service } from './service';
+import { Service } from '../service/service';
+import { Entity } from '../service/entity';
 
 const MAX_SAFE_INTEGER = 9007199254740991;
 
-export class MyDataSource<T> implements DataSource<T> {
+export class MyDataSource<T extends Entity> implements DataSource<T> {
 
     private readonly renderData = new BehaviorSubject<T[]>([]);
 

@@ -13,30 +13,21 @@
           <ng-container matColumnDef="type">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
             <td mat-cell *matCellDef="let element">
-              <span *ngIf="!element.isForEdit">{{element.type}}</span>
-              <mat-form-field *ngIf="element.isForEdit" style="width: 90%">
-                  <input matInput type="text" [value]="element.type" #type>
-                </mat-form-field>
+              <span>{{element.type}}</span>
             </td>
           </ng-container>
         
           <ng-container matColumnDef="capacity">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </th>
             <td mat-cell *matCellDef="let element"> 
-              <span *ngIf="!element.isForEdit">{{element.capacity}} </span>
-              <mat-form-field *ngIf="element.isForEdit" style="width: 60px;">
-                <input matInput type="number" [value]="element.capacity" #capacity>
-              </mat-form-field>
+              <span>{{element.capacity}}</span>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
             <td mat-cell *matCellDef="let element">
-              <span *ngIf="!element.isForEdit">{{element.description}}</span>
-              <mat-form-field *ngIf="element.isForEdit" style="width: 90%">
-                <input matInput type="text" [value]="element.description" #description>
-              </mat-form-field>
+              <span>{{element.description}}</span>
             </td>
           </ng-container>
 
@@ -45,8 +36,7 @@
               <td mat-cell *matCellDef="let element"> 
                 <div>
                 <a mat-icon-button (click)="edit(element)">
-                  <mat-icon *ngIf="!element.isForEdit" fontSet="fa" fontIcon="fa-edit"></mat-icon>
-                  <mat-icon *ngIf="element.isForEdit" fontSet="fa" fontIcon="fa-save"></mat-icon>
+                  <mat-icon fontSet="fa" fontIcon="fa-edit"></mat-icon>
                 </a>
                 <a mat-icon-button (click)="delete(element)">
                     <mat-icon fontSet="fa" fontIcon="fa-trash"></mat-icon>

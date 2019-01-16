@@ -6,45 +6,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
 import { RoomType } from './room-type';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { Service } from 'src/app/service/service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RoomTypeService {
+export class RoomTypeService extends Service<RoomType> {
 
-  private roomTypesUrl = 'https://cryptic-bayou-86593.herokuapp.com/api/room-types';
-
-  constructor(private http: HttpClient) { }
-
-  getRoomTypes(): Observable<RoomType[]> {
-    return this.http.get<RoomType[]>(this.roomTypesUrl)
-      .pipe(catchError(this.handleError('getRoomTypes', [])));
+  constructor(http: HttpClient) {
+    super(http);
   }
 
-  updateRoomType(roomType: RoomType): Observable<any> {
-    return this.http.put(this.roomTypesUrl + '/' + roomType.id, roomType, httpOptions)
-      .pipe(
-        catchError(this.handleError('updateRoomType'))
-      );
+  endpoint(): string {
+    return '/room-types';
   }
-
-  deleteRoomType(roomType: RoomType): Observable<any> {
-    return this.http.delete(this.roomTypesUrl + '/' + roomType.id, httpOptions)
-      .pipe(
-        catchError(this.handleError('deleteRoomType'))
-      );
-  }
-
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(operation, error);
-      return of(result as T);
-    };
-  }
-
 
 }

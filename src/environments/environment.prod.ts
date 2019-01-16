@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  APIEndpoint: 'https://cryptic-bayou-86593.herokuapp.com/api'
 };
