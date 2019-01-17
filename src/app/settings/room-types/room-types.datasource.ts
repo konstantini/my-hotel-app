@@ -10,12 +10,4 @@ export class RoomTypesDataSource extends MyDataSource<RoomType> {
         super(service, sort);
     }
 
-    public update(room: RoomType): void {
-        super.update(room, (a: RoomType, b: RoomType) => a.id === b.id);
-    }
-
-    public delete(room: RoomType): void {
-        super.delete(room, (a: RoomType, b: RoomType) => a.id === b.id);
-    }
-
 }

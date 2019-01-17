@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Room type</h1>
+<div mat-dialog-content [formGroup]="form">
+  <div>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Room type" formControlName="type" required/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Capacity" formControlName="capacity" required/>
+    </mat-form-field>
+  </div>
+  <mat-form-field>
+    <textarea matInput type="text" placeholder="Description" formControlName="description"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+  <button mat-button (click)="save()">Save</button>
+</div>

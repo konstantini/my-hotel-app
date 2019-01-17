@@ -10,7 +10,7 @@ import { Entity } from '../service/entity';
 
 const MAX_SAFE_INTEGER = 9007199254740991;
 
-export class MyDataSource<T extends Entity> implements DataSource<T> {
+export abstract class MyDataSource<T extends Entity> implements DataSource<T> {
 
     private readonly renderData = new BehaviorSubject<T[]>([]);
 
@@ -60,10 +60,19 @@ export class MyDataSource<T extends Entity> implements DataSource<T> {
         this.loadingSubject.complete();
     }
 
-    protected update(item: T, comparator: (a: T, b: T) => boolean): void {
+    public insert(item: T): void {
+        this.service.insert(item).subscribe(result => {
+            const data = this.data.getValue();
+            data.push(result);
+            this.data.next(data);
+        });
+        this.updateChangeSubscription();
+    }
+
+    public update(item: T): void {
         this.service.update(item).subscribe(result => {
             const data = this.data.getValue();
-            const index = data.findIndex(i => comparator(i, result));
+            const index = data.findIndex(i => this.compare(i, result));
             if (index > -1) {
               data[index] = result;
             }
@@ -72,10 +81,10 @@ export class MyDataSource<T extends Entity> implements DataSource<T> {
         this.updateChangeSubscription();
     }
 
-    protected delete(item: T, comparator: (a: T, b: T) => boolean): void {
+    public delete(item: T): void {
         this.service.delete(item).subscribe(() => {
             const data = this.data.getValue();
-            const index = data.findIndex(i => comparator(i, item));
+            const index = data.findIndex(i => this.compare(i, item));
             if (index > -1) {
                 data.splice(index, 1);
             }
@@ -84,13 +93,16 @@ export class MyDataSource<T extends Entity> implements DataSource<T> {
         this.updateChangeSubscription();
     }
 
+    private compare(item: T, other: T): boolean {
+        return item.id === other.id;
+    }
+
     private updateChangeSubscription() {
         const sortChange: Observable<Sort|null|void> = this.sort ?
             merge<Sort|void>(this.sort.sortChange, this.sort.initialized) :
             of(null);
 
         const dataStream = this.data;
-
 
         const filteredData = combineLatest(dataStream, this._filter)
             .pipe(map(([data]) => this.filterData(data)));

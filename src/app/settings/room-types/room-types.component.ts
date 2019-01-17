@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit  } from '@angular/core';
-import { MatSort } from '@angular/material';
+import { MatSort, MatDialog, MatDialogConfig } from '@angular/material';
 
 import { RoomType } from './room-type';
 import { RoomTypeService } from './room-type.service';
 import { RoomTypesDataSource } from './room-types.datasource';
+import { RoomTypeDialogComponent } from './room-type-dialog/room-type-dialog.component';
 
 @Component({
   selector: 'app-settings-room-types',
@@ -21,7 +22,7 @@ export class RoomTypesComponent implements OnInit, AfterViewInit {
   @ViewChild('description') descriptionInput: ElementRef;
   dataSource: RoomTypesDataSource;
 
-  constructor(private roomTypeService: RoomTypeService) {}
+  constructor(private roomTypeService: RoomTypeService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.dataSource = new RoomTypesDataSource(this.roomTypeService, this.sort);
@@ -35,16 +36,35 @@ export class RoomTypesComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  add() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(RoomTypeDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        console.log(result);
+        this.dataSource.insert(result);
+      }
+    });
+  }
+
   edit(row: RoomType) {
-    // if (row.isForEdit) {
-    //   row.isForEdit = !row.isForEdit;
-    //   row.type = this.typeInput.nativeElement.value;
-    //   row.capacity = this.capacityInput.nativeElement.value;
-    //   row.description = this.descriptionInput.nativeElement.value;
-    //   this.dataSource.update(row);
-    // } else {
-    //   row.isForEdit = !row.isForEdit;
-    // }
+    const dialogRef = this.dialog.open(RoomTypeDialogComponent, {
+      // width: '250px',
+      data: row
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        result.id = row.id;
+        this.dataSource.update(result);
+      }
+    });
   }
 
   delete(row: RoomType) {

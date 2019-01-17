@@ -18,26 +18,33 @@ export abstract class Service<T extends Entity> {
     this.http = http;
   }
 
-  get(): Observable<T[]> {
+  public get(): Observable<T[]> {
     return this.http.get<T[]>(this.url)
       .pipe(catchError(this.handleError('get', [])));
   }
 
-  update(item: T): Observable<any> {
+  public insert(item: T): Observable<any> {
+    return this.http.post(this.url, item, this.httpOptions)
+      .pipe(
+        catchError(this.handleError('insert'))
+      );
+  }
+
+  public update(item: T): Observable<any> {
     return this.http.put(this.url + '/' + item.id, item, this.httpOptions)
       .pipe(
         catchError(this.handleError('update'))
       );
   }
 
-  delete(roomType: T): Observable<any> {
+  public delete(roomType: T): Observable<any> {
     return this.http.delete(this.url + '/' + roomType.id, this.httpOptions)
       .pipe(
         catchError(this.handleError('delete'))
       );
   }
 
-  abstract endpoint();
+  public abstract endpoint(): string;
 
   private get url() { return this.APIEndpoint + this.endpoint(); }
 
