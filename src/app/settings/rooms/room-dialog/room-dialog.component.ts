@@ -25,8 +25,8 @@ export class RoomDialogComponent {
       this.roomTypeService.get().subscribe(rts => this.roomTypes = rts);
 
       this.form = this.fb.group({
-        number: [data.number, Validators.required],
-        type: [data.type, Validators.required]
+        number: [data ? data.number : 0, Validators.required],
+        type: [data ? data.type : undefined, Validators.required]
       });
 
     }

@@ -47,17 +47,19 @@ export class RoomTypesComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        console.log(result);
         this.dataSource.insert(result);
       }
     });
   }
 
   edit(row: RoomType) {
-    const dialogRef = this.dialog.open(RoomTypeDialogComponent, {
-      // width: '250px',
-      data: row
-    });
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = row;
+
+    const dialogRef = this.dialog.open(RoomTypeDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {

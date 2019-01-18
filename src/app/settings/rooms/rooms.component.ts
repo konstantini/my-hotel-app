@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { RoomsService } from './rooms.service';
 import { RoomsDataSource } from './rooms.datasource';
-import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatSort, MatDialog, MatDialogConfig } from '@angular/material';
 import { Room } from './room';
-import { RoomTypeService } from '../room-types/room-type.service';
 import { RoomType } from '../room-types/room-type';
 import { RoomDialogComponent } from './room-dialog/room-dialog.component';
 
@@ -39,12 +38,31 @@ export class RoomsComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  edit(row: Room) {
+  add() {
+    const dialogConfig = new MatDialogConfig();
 
-    const dialogRef = this.dialog.open(RoomDialogComponent, {
-      width: '250px',
-      data: row
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '250px';
+
+    const dialogRef = this.dialog.open(RoomDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.dataSource.insert(result);
+      }
     });
+  }
+
+  edit(row: Room) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = row;
+    dialogConfig.width = '250px';
+
+    const dialogRef = this.dialog.open(RoomDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
